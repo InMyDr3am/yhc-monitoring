@@ -41,7 +41,7 @@ class ClientController extends Controller
         $client->phone = $request->phone;
         $client->save();
 
-        return redirect('/client');
+        return redirect('/client')->with('success', 'Data Client berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -74,7 +74,7 @@ class ClientController extends Controller
         $client->phone = $request->phone;
         $client->save();
         
-        return redirect('/client');
+        return redirect('/client')->with('success', 'Data Client berhasil diubah');
 
     }
 
@@ -84,6 +84,6 @@ class ClientController extends Controller
         $client = Client::find($id);
         $client->delete();
 
-        return redirect('/client');
+        return redirect('/client')->with('success', 'Data Client berhasil dihapus');
     }
 }

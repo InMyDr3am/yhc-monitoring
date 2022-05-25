@@ -18,7 +18,12 @@
 @endpush
 
 @section('content')
-    <a href="/leader/create" class="btn btn-primary">Tambah Leader</a>
+    @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    <a href="/leader/create" class="btn btn-primary">Tambah Leader</a><br><br>
     <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -26,7 +31,7 @@
                 <th>Nama</th>
                 <th>Email</th>
                 <th>Nomer HP</th>
-                <th>Aksi</th>
+                <th style='text-align:center'>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -36,13 +41,12 @@
                     <td>{{ $leader->name }}</td>
                     <td>{{ $leader->email }}</td>
                     <td>{{ $leader->phone }}</td>
-                    <td>
+                    <td style='text-align:center'>
                         <form action="/leader/{{ $leader->id }}" method="POST">
                             @csrf
                             @method('delete')
-                            <a href="/leader/{{ $leader->id }}" class="btn btn-success btn-sm">Detail</a>
-                            <a href="/leader/{{ $leader->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
-                            <input type="submit" class="btn btn-danger btn-sm" onclick="" value="Delete">
+                            <button class="btn btn-danger btn-sm"> <i class="fas fa-regular fa-trash"></i></button>
+                            <a href="/leader/{{ $leader->id }}/edit" class="btn btn-primary btn-sm"><i class="fas fa-duotone fa-pen"></i></a>
                         </form>
                     </td>
                 </tr>

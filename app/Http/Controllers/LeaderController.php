@@ -41,7 +41,7 @@ class LeaderController extends Controller
         $leader->phone = $request->phone;
         $leader->save();
 
-        return redirect('/leader');
+        return redirect('/leader')->with('success', 'Data Leader berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -74,7 +74,7 @@ class LeaderController extends Controller
         $leader->phone = $request->phone;
         $leader->save();
         
-        return redirect('/leader');
+        return redirect('/leader')->with('success', 'Data Leader berhasil diubah');
 
     }
 
@@ -84,6 +84,6 @@ class LeaderController extends Controller
         $leader = Leader::find($id);
         $leader->delete();
 
-        return redirect('/leader');
+        return redirect('/leader')->with('success', 'Data Leader berhasil dihapus');
     }
 }

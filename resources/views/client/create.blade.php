@@ -25,7 +25,7 @@
         <label>No HP</label>
         <input type="text" class="form-control" name="phone">
     </div>
-    @error('name')
+    @error('phone')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
     <button type="submit" class="btn btn-primary">Submit</button>

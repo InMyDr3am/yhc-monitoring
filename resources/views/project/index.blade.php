@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('judul')
-    Halaman Data Client
+    Halaman Project Monitoring
 @endsection
 
 @push('scripts')
@@ -23,30 +23,41 @@
             {{ session('success') }}
         </div>
     @endif
-    <a href="/client/create" class="btn btn-primary">Tambah Client</a><br><br>
+    <a href="/project/create" class="btn btn-primary">Tambah Project</a><br><br>
     <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Nomer HP</th>
+                <th>Project Name</th>
+                <th>Client</th>
+                <th>Project Leader</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Progress</th>
                 <th style='text-align:center'>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($data_client as $key => $client)
+            @forelse ($data_project as $key => $project)
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
-                    <td>{{ $client->name }}</td>
-                    <td>{{ $client->address }}</td>
-                    <td>{{ $client->phone }}</td>
+                    <td>{{ $project->name }}</td>
+                    <td>{{ $project->client->name }}</td>
+                    <td><b>{{ $project->leader->name }}</b>
+                        <br>{{ $project->leader->email }}</td>
+                    <td>{{ Carbon\Carbon::parse($project->start_date)->translatedFormat(' d F Y') }}</td>
+                    <td>{{ Carbon\Carbon::parse($project->end_date)->translatedFormat(' d F Y') }}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ $project->progress }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <b>{{ $project->progress }}%</b></td>
                     <td style='text-align:center'>
-                        <form action="/client/{{ $client->id }}" method="POST">
+                        <form action="/project/{{ $project->id }}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="btn btn-danger btn-sm"> <i class="fas fa-regular fa-trash"></i></button>
-                            <a href="/client/{{ $client->id }}/edit" class="btn btn-primary btn-sm"><i class="fas fa-duotone fa-pen"></i></a>
+                            <a href="/project/{{ $project->id }}/edit" class="btn btn-primary btn-sm"><i class="fas fa-duotone fa-pen"></i></a>
                         </form>
                     </td>
                 </tr>
